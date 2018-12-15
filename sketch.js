@@ -18,8 +18,11 @@ function draw() {
     pipes[i].update();
 
     for (let b = 0; b < NUM_BIRDS; ++b) {
-      if (pipes[i].hits(birds[b])) {
-        console.log("HIT");
+      if (birds[b] != null) {
+        if (pipes[i].hits(birds[b])) {
+          console.log("HIT");
+          birds[b] = null;
+        }
       }
     }
 
@@ -29,8 +32,10 @@ function draw() {
   }
 
   for (let i = 0; i < NUM_BIRDS; ++i) { 
-    birds[i].update();
-    birds[i].show();
+    if (birds[i] != null) {
+      birds[i].update();
+      birds[i].show();
+    }
   }
 
   if (frameCount % 75 == 0) {
@@ -41,8 +46,10 @@ function draw() {
 function keyPressed() {
   if (key == ' ') {
     for (let i = 0; i < NUM_BIRDS; ++i) {
-      if (Math.random() > 0.5) {
-        birds[i].up();
+      if (birds[i] != null) {
+        if (Math.random() > 0.5) {
+          birds[i].up();
+        }
       }
     }
   }
