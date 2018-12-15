@@ -1,9 +1,12 @@
-var bird;
+var birds = [];
 var pipes = [];
+var NUM_BIRDS = 2;
 
 function setup() {
   createCanvas(640, 480);
-  bird = new Bird();
+  for (let i = 0; i < NUM_BIRDS; ++i) {
+    birds[i] = new Bird();
+  }
   pipes.push(new Pipe());
 }
 
@@ -14,8 +17,10 @@ function draw() {
     pipes[i].show();
     pipes[i].update();
 
-    if (pipes[i].hits(bird)) {
-      console.log("HIT");
+    for (let b = 0; b < NUM_BIRDS; ++b) {
+      if (pipes[i].hits(birds[b])) {
+        console.log("HIT");
+      }
     }
 
     if (pipes[i].offscreen()) {
@@ -23,18 +28,22 @@ function draw() {
     }
   }
 
-  bird.update();
-  bird.show();
+  for (let i = 0; i < NUM_BIRDS; ++i) { 
+    birds[i].update();
+    birds[i].show();
+  }
 
   if (frameCount % 75 == 0) {
     pipes.push(new Pipe());
   }
 }
 
-function whatsNext() {
-  
+function keyPressed() {
   if (key == ' ') {
-    console.log("BIRD PUJA");
-    bird.up();
+    for (let i = 0; i < NUM_BIRDS; ++i) {
+      if (Math.random() > 0.5) {
+        birds[i].up();
+      }
+    }
   }
 }
