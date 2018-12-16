@@ -2,6 +2,8 @@ var birds = [];
 var pipes = [];
 var NUM_BIRDS = 3;
 
+var last_birds = [];
+
 function setup() {
   createCanvas(640, 480);
   for (let i = 0; i < NUM_BIRDS; ++i) {
@@ -11,9 +13,12 @@ function setup() {
 }
 
 function draw() {
-  background(0);
+  background(10);
   if (!checkAll()) {
     console.log("NO HI HA VIUS!")
+    birds = last_birds;
+    pipes = [];
+    last_birds = [];
   }
 
   var close_pipe;
@@ -28,6 +33,7 @@ function draw() {
       if (birds[b] != null) {
         if (pipes[i].hits(birds[b])) {
           console.log("HIT");
+          last_birds.push(birds[b]);
           birds[b] = null;
         }
       }
@@ -37,17 +43,20 @@ function draw() {
       pipes.splice(i, 1);
     }
   }
-  close_pipe.highlight = true;
 
-  var mid = close_pipe.top + close_pipe.spacing/2;
-  for (let i = 0; i < NUM_BIRDS; ++i) { 
-    if (birds[i] != null) {
-      stroke(153+i*5);
-      line(birds[i].x, birds[i].y, close_pipe.x + close_pipe.w/2, mid);
-      birds[i].act(close_pipe.x - birds[i].x + close_pipe.w/2, mid - birds[i].y);
+  if (close_pipe != null) {
+    close_pipe.highlight = true;
+
+    var mid = close_pipe.top + close_pipe.spacing/2;
+    for (let i = 0; i < NUM_BIRDS; ++i) { 
       if (birds[i] != null) {
-        birds[i].update();
-        birds[i].show();
+        stroke(255);
+        line(birds[i].x, birds[i].y, close_pipe.x + close_pipe.w/2, mid);
+        birds[i].act(close_pipe.x - birds[i].x + close_pipe.w/2, mid - birds[i].y);
+        if (birds[i] != null) {
+          birds[i].update();
+          birds[i].show();
+        }
       }
     }
   }
