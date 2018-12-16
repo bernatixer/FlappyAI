@@ -12,6 +12,9 @@ function setup() {
 
 function draw() {
   background(0);
+  if (!checkAll()) {
+    console.log("NO HI HA VIUS!")
+  }
 
   var close_pipe;
   for (var i = pipes.length-1; i >= 0; i--) {
@@ -64,4 +67,14 @@ function keyPressed() {
       }
     }
   }
+}
+
+function checkAll() {
+  let b = false;
+  for (let i = 0; i < NUM_BIRDS; ++i) {
+    if (birds[i] != null) {
+      b =  true;
+    }
+  }
+  return b;
 }
