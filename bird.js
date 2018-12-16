@@ -11,9 +11,11 @@ function Bird() {
   this.gravity = 0.7;
   this.lift = -12;
   this.velocity = 0;
+  this.fitness = 0;
+  this.color = [255*Math.random(), 255*Math.random(), 255*Math.random()];
 
   this.show = function() {
-    fill(255);
+    fill(this.color);
     ellipse(this.x, this.y, 32, 32);
   }
 
@@ -22,6 +24,7 @@ function Bird() {
   }
 
   this.update = function() {
+    this.fitness += 1;
     this.velocity += this.gravity;
     // this.velocity *= 0.9;
     this.y += this.velocity;
