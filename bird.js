@@ -3,10 +3,13 @@
 // http://patreon.com/codingtrain
 // Code for: https://youtu.be/cXgA1d_E-jY&
 
-function Bird() {
+function Bird(nn) {
   this.y = height/2;
   this.x = 64;
   this.brain = new synaptic.Architect.Perceptron(2, 8, 1);
+  if (nn != null) {
+    this.brain = synaptic.Network.fromJSON(nn);
+  }
 
   this.gravity = 0.7;
   this.lift = -12;

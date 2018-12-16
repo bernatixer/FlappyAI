@@ -7,7 +7,7 @@ var last_birds = [];
 function setup() {
   createCanvas(640, 480);
   for (let i = 0; i < NUM_BIRDS; ++i) {
-    birds[i] = new Bird();
+    birds[i] = new Bird(null);
   }
   pipes.push(new Pipe());
 }
@@ -17,9 +17,9 @@ function draw() {
   if (!checkAll()) {
     console.log("NO HI HA VIUS!")
     birds = evolve(last_birds);
-    // console.log(birds);
+    console.log(birds);
     for (let b = 0; b < last_birds.length; ++b) {
-      console.log(last_birds[b].fitness);
+      // console.log(last_birds[b].fitness);
       last_birds[b].fitness = 0;
     }
     pipes = [];

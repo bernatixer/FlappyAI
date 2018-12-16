@@ -1,35 +1,41 @@
-function Population() {
-    this.birds = [];
-    this.populationSize = 10;
-
-    for (let i = 0; i < this.populationSize; ++i) {
-        this.birds[i] = new Bird();
+function evolve(population) {
+    var offspring = getFittest(population);
+    var length = offspring.length;
+    for (let i = 0; i < length; ++i) {
+        for (let j = i+1; j < length; ++j) {
+            console.log(length)
+            let nBrain = crossover(offspring[i].brain.toJSON(), offspring[j].brain.toJSON());
+            var nb = new Bird(nBrain);
+            offspring.push(nb);
+        }
     }
+    return offspring;
 }
 
-function evolve(population) {
-    var fittest = getFittest(population);
-    var offspring = fittest;
-    // for (let i = 0; i < fittest.length; ++i) {
-    //     for (let j = i+1; j < fittest.length; ++j) {
-        //         offspring.push(crossover(fittest[i], fittest[j]));
-        //     }
-        // }
-        return offspring;
-    }
-    
-    function getFittest(population) {
+function getFittest(population) {
     population.sort(function(a, b) {
         return b.fitness - a.fitness;
     });
-    let offspring = [];
+    var offspring = [];
     for (let i = 0; i < 4; ++i) {
-        offspring[i] = new Bird();
+        var nb = new Bird(population[i].brain.toJSON());
+        offspring.push(nb);
     }
-    console.log(offspring);
     return offspring;
 }
 
 function crossover(father, mother) {
-    // 
+    var cutPoint = this.rand(0, father.neurons.length - 1);
+    console.log('AAA');
+    for (var i = cutPoint; i < father.neurons.length; ++i){
+        var fatherBias = father.neurons[i]['bias'];
+        father.neurons[i]['bias'] = mother.neurons[i]['bias'];
+        mother.neurons[i]['bias'] = fatherBias;
+    }
+    console.log('BBB')
+    return this.rand(0, 1) == 1 ? father : mother;
+}
+
+function rand(min, max){
+    return Math.floor(Math.random()*(max-min+1) + min);
 }
