@@ -6,7 +6,7 @@
 function Bird() {
   this.y = height/2;
   this.x = 64;
-  this.nn = new synaptic.Architect.Perceptron(2, 8, 1);
+  this.brain = new synaptic.Architect.Perceptron(2, 8, 1);
 
   this.gravity = 0.7;
   this.lift = -12;
@@ -42,7 +42,7 @@ function Bird() {
   }
 
   this.act = function(distance, height) {
-    var output = this.nn.activate([distance, height]);
+    var output = this.brain.activate([distance, height]);
     if (output > 0.5) {
       this.up();
     }
