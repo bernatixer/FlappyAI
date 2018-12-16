@@ -15,13 +15,7 @@ function setup() {
 function draw() {
   background(10);
   if (!checkAll()) {
-    console.log("NO HI HA VIUS!")
     birds = evolve(last_birds);
-    console.log(birds);
-    for (let b = 0; b < last_birds.length; ++b) {
-      // console.log(last_birds[b].fitness);
-      last_birds[b].fitness = 0;
-    }
     pipes = [];
     last_birds = [];
   }

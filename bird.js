@@ -6,7 +6,7 @@
 function Bird(nn) {
   this.y = height/2;
   this.x = 64;
-  this.brain = new synaptic.Architect.Perceptron(2, 8, 1);
+  this.brain = new synaptic.Architect.Perceptron(2, 6, 1);
   if (nn != null) {
     this.brain = synaptic.Network.fromJSON(nn);
   }
